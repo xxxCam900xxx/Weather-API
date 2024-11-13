@@ -5,6 +5,9 @@ let apiUrl = "https://api.openweathermap.org/data/2.5/weather?units=metric&lang=
 // fetch(`${apiUrl}&q=${city}&appid=${apiKey}`)
 
 async function requestZuerichData() {
+
+    let page = document.getElementById("zuerich");
+
     try {
         const response = await fetch(`${apiUrl}&q=Zürich&appid=${apiKey}`)
 
@@ -15,7 +18,7 @@ async function requestZuerichData() {
         const jsonData = await response.json();
         console.log(jsonData);
 
-        let page = document.getElementById("zuerich");
+        
         let weatherDataCard = document.createElement('div');
         weatherDataCard.innerHTML += "Location: " + jsonData.name + "<br>";
         weatherDataCard.innerHTML += "Temp: " + jsonData.main.temp + "<br>";
@@ -26,6 +29,8 @@ async function requestZuerichData() {
         page.appendChild(weatherDataCard);
     }
     catch (error) {
-        console.error(error.message);
+        let errorDataCard = document.createElement('div');
+        errorDataCard.innerText = error.message;
+        page.appendChild(errorDataCard);
     }
 }
