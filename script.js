@@ -14,6 +14,16 @@ async function requestZuerichData() {
 
         const jsonData = await response.json();
         console.log(jsonData);
+
+        let page = document.getElementById("zuerich");
+        let weatherDataCard = document.createElement('div');
+        weatherDataCard.innerHTML += "Location: " + jsonData.name + "<br>";
+        weatherDataCard.innerHTML += "Temp: " + jsonData.main.temp + "<br>";
+        weatherDataCard.innerHTML += "Min Temp: " + jsonData.main.temp_min + "<br>";
+        weatherDataCard.innerHTML += "Max Temp: " + jsonData.main.temp_max + "<br>";
+        weatherDataCard.innerHTML += "Weather Today: " + jsonData.weather[0].main + "<br>";
+        weatherDataCard.innerHTML += "Wind: " + jsonData.wind.speed;
+        page.appendChild(weatherDataCard);
     }
     catch (error) {
         console.error(error.message);
