@@ -13,7 +13,7 @@
         <img src="" alt="">
         <nav>
             <a href="javascript:requestZuerichData();">Zürich</a>
-            <a href="">Suche</a>
+            <a href="javascript:openPopUp();">Suche</a>
             <a href="">Current Location</a>
             <a href="">Credits</a>
         </nav>
@@ -22,18 +22,18 @@
 
     <main>
 
-        <section id="zuerich" class="active">
+        <section id="page">
             <h1>Zürich</h1>
+            <p>No Data Found</p>
         </section>
-        <section id="search">
-            <h1>Suche</h1>
-        </section>
-        <section id="location">
-            <h1>Current Location</h1>
-        </section>
-        <section id="credits">
-            <h1>Credits</h1>
-        </section>
+
+        <div class="popUpBg">
+            <div class="popUp">
+                <label for="city">Suche</label>
+                <input type="search" name="city" id="city" placeholder="Zürich">
+                <button id="search">Search</button>
+            </div>
+        </div>
 
     </main>
 

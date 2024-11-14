@@ -4,9 +4,23 @@ let apiUrl = "https://api.openweathermap.org/data/2.5/weather?units=metric&lang=
 // let city = "Zürich";
 // fetch(`${apiUrl}&q=${city}&appid=${apiKey}`)
 
+let popUp = document.getElementsByClassName('popUpBg')[0];
+
+let weatherDataCard = document.createElement('div');
+let locationName = document.createElement('h1');
+let weatherToday = document.createElement('p');
+let weatherTemprature = document.createElement('div');
+let weatherTempratureTitle = document.createElement('h2');
+let weatherTempratureDesc = document.createElement('p');
+let weatherWind = document.createElement('div');
+let weatherWindTitle = document.createElement('h2');
+let weatherWindDesc = document.createElement('p');
+
 async function requestZuerichData() {
 
-    let page = document.getElementById("zuerich");
+    let page = document.getElementById("page");
+
+    page.innerHTML = "";
 
     try {
         const response = await fetch(`${apiUrl}&q=Zürich&appid=${apiKey}`)
@@ -18,15 +32,7 @@ async function requestZuerichData() {
         const jsonData = await response.json();
         console.log(jsonData);
 
-        
-        let weatherDataCard = document.createElement('div');
-        weatherDataCard.innerHTML += "Location: " + jsonData.name + "<br>";
-        weatherDataCard.innerHTML += "Temp: " + jsonData.main.temp + "<br>";
-        weatherDataCard.innerHTML += "Min Temp: " + jsonData.main.temp_min + "<br>";
-        weatherDataCard.innerHTML += "Max Temp: " + jsonData.main.temp_max + "<br>";
-        weatherDataCard.innerHTML += "Weather Today: " + jsonData.weather[0].main + "<br>";
-        weatherDataCard.innerHTML += "Wind: " + jsonData.wind.speed;
-        page.appendChild(weatherDataCard);
+        createWeatherCard(jsonData);
     }
     catch (error) {
         let errorDataCard = document.createElement('div');
@@ -34,3 +40,78 @@ async function requestZuerichData() {
         page.appendChild(errorDataCard);
     }
 }
+
+let ButtonListener = document.getElementById('search');
+let PopUpInput = document.getElementById('city');
+
+ButtonListener.addEventListener('click', () => {
+    let value = PopUpInput.value;
+    console.log(value);
+    searchData(value)
+});
+
+function openPopUp() {
+    popUp.classList.add('show');
+}
+
+async function searchData(value) {
+
+    popUp.classList.remove('show');
+
+    try {
+        const response = await fetch(`${apiUrl}&q=${value}&appid=${apiKey}`)
+
+        if (!response.ok) {
+            throw new Error(`Repsonse Status: ${response.Status}`);
+        }
+
+        const jsonData = await response.json();
+        console.log(jsonData);
+
+        createWeatherCard(jsonData);
+    }
+    catch (error) {
+        let errorDataCard = document.createElement('div');
+        errorDataCard.innerText = error.message;
+        page.appendChild(errorDataCard);
+    }
+
+
+
+}
+
+
+function createWeatherCard(jsonData) {
+
+    weatherDataCard.classList.add("WeatherCard");
+
+    locationName.innerText = jsonData.name;
+    // TODO Switchcase for correct Grammatik
+    weatherToday.innerText = `Weather Today has ${jsonData.weather[0].main}`;
+
+    weatherTempratureTitle.innerText = "Temperatur";
+    weatherTempratureDesc.innerHTML = `Durchschnitt Temparatur liegt bei ${jsonData.main.temp}° <br>`;
+    weatherTempratureDesc.innerHTML += `Tiefst Temperaturen liegen bei <span class="blue_temp">${jsonData.main.temp_min}°</span> <br>`;
+    weatherTempratureDesc.innerHTML += `Höchst Temperaturen lieben bei <span class="red_temp">${jsonData.main.temp_max}°</span>`;
+
+    weatherTemprature.appendChild(weatherTempratureTitle);
+    weatherTemprature.appendChild(weatherTempratureDesc);
+
+    weatherWindTitle.innerText = "Wind";
+    weatherWindDesc.innerText = `Heute weht ein Wind mit einer Windstärke von ${jsonData.wind.speed} km/h`;
+
+    weatherWind.appendChild(weatherWindTitle);
+    weatherWind.appendChild(weatherWindDesc);
+
+    weatherDataCard.appendChild(locationName);
+    weatherDataCard.appendChild(weatherToday);
+    weatherDataCard.appendChild(weatherTemprature);
+    weatherDataCard.appendChild(weatherWind);
+
+    page.appendChild(weatherDataCard);
+
+}
+
+
+requestZuerichData();
+
