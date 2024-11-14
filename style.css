@@ -48,6 +48,14 @@ section {
     padding: 20px 0;
 }
 
+section > div:not(.WeatherCard) {
+    background-color: rgb(255, 163, 163);
+    color: rgb(141, 0, 0);
+    padding: 10px;
+    border-radius: 10px;
+    font-size: 2rem;
+}
+
 footer {
     background-color: rgb(255, 255, 255);
     height: 50px;
@@ -123,4 +131,21 @@ footer {
 .popUp button {
     font-size: 1.5rem;
     padding: 0px 5px;
+}
+
+.popUp > .close {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: red;
+    color: white;
+    border-radius: 5px;
+    width: 40px;
+    font-weight: 600;
+    font-size: 1.2rem;
+    aspect-ratio: 1;
 }

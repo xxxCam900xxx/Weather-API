@@ -14,8 +14,7 @@
         <nav>
             <a href="javascript:requestZuerichData();">Zürich</a>
             <a href="javascript:openPopUp();">Suche</a>
-            <a href="">Current Location</a>
-            <a href="">Credits</a>
+            <a href="https://xrayzu.com">Credits</a>
         </nav>
 
     </header>
@@ -30,8 +29,12 @@
         <div class="popUpBg">
             <div class="popUp">
                 <label for="city">Suche</label>
-                <input type="search" name="city" id="city" placeholder="Zürich">
+                <input type="search" name="city" id="city" placeholder="Zürich" autocomplete="">
                 <button id="search">Search</button>
+
+                <div class="close">
+                    X
+                </div>
             </div>
         </div>
 

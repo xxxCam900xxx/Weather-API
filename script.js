@@ -21,7 +21,6 @@ let weatherWindDesc = document.createElement('p');
 async function requestZuerichData() {
 
     let page = document.getElementById("page");
-
     page.innerHTML = "";
 
     try {
@@ -43,22 +42,10 @@ async function requestZuerichData() {
     }
 }
 
-let ButtonListener = document.getElementById('search');
-let PopUpInput = document.getElementById('city');
-
-ButtonListener.addEventListener('click', () => {
-    let value = PopUpInput.value;
-    console.log(value);
-    searchData(value)
-});
-
-function openPopUp() {
-    popUp.classList.add('show');
-}
-
 async function searchData(value) {
 
     popUp.classList.remove('show');
+    page.innerHTML = "";
 
     try {
         const response = await fetch(`${apiUrl}&q=${value}&appid=${apiKey}`)
@@ -82,6 +69,35 @@ async function searchData(value) {
 
 }
 
+let closePopUpButton = document.getElementsByClassName('close')[0];
+let ButtonListener = document.getElementById('search');
+let PopUpInput = document.getElementById('city');
+
+PopUpInput.addEventListener("keypress", function (event) {
+    // If the user presses the "Enter" key on the keyboard
+    if (event.key === "Enter") {
+        // Cancel the default action, if needed
+        event.preventDefault();
+        // Trigger the button element with a click
+        ButtonListener.click();
+    }
+});
+
+ButtonListener.addEventListener('click', () => {
+    let value = PopUpInput.value;
+    console.log(value);
+    searchData(value)
+});
+
+closePopUpButton.addEventListener('click', () => {
+    popUp.classList.remove('show');
+})
+
+function openPopUp() {
+    popUp.classList.add('show');
+    PopUpInput.value = "";
+    PopUpInput.focus();
+}
 
 function createWeatherCard(jsonData) {
 
@@ -114,6 +130,4 @@ function createWeatherCard(jsonData) {
 
 }
 
-
 requestZuerichData();
-
