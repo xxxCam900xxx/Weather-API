@@ -28,6 +28,7 @@ oder mit der Variante, für die ich mich letztendlich nicht entschieden habe:
 obj.classList.add('show');
 obj.classList.remove('show');
 ```
+Hilfreich war heute auch die [KeyCode Website](https://www.toptal.com/developers/keycode), die mir die KeyCodes angezeigt hat, die ich für meinen Code brauchte.
 
 # Possible Addition
 - [ ] Current Location Grep
