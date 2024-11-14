@@ -4,6 +4,8 @@ let apiUrl = "https://api.openweathermap.org/data/2.5/weather?units=metric&lang=
 // let city = "Zürich";
 // fetch(`${apiUrl}&q=${city}&appid=${apiKey}`)
 
+// https://stackoverflow.com/questions/6797569/get-city-name-using-geolocation
+
 let popUp = document.getElementsByClassName('popUpBg')[0];
 
 let weatherDataCard = document.createElement('div');
